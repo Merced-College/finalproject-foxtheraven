@@ -1,131 +1,67 @@
-//Xandra Quevedo
-//Started Nov 6 2025
-//Player class for Dungeons of Java
+/*
+Xandra Quevedo
+This class was made Nov 13, 2025
+Finished Dec 4, 2024
+Special map class for Dungeons of Java
 
-public class Player {
-	//Data variables - player info
-	//Name from user input + base HP, power, and defense
-	private String playerName;
-	private int playerHP;
-	private int playerPower;
-	private int playerDefense;
-	private int playerX;
-	private int playerY;
-	
-	//Initial values for the player's info and location
-	//The first position is (1, 0) due to the map's shape
-	private final int BASE_HEALTH_POINTS = 10;
-	private final int BASE_DAMAGE = 5;
-	private final int BASE_DEFENSE = 5;
-	private final int INITIAL_X = 1;
-	private final int INITIAL_Y = 0;	
+This is basically an array replacement class, for use in
+my map hash table. Since arrays aren't directly comparable,
+but are the simplest way to store an x and y value in one object,
+I needed to make this class to store arrays that ARE comparable.
+A unique equals method will override the standard and directly
+compare X and Y.
+*/
 
-	
-	//Partially parameterized constructor - the one that is used
-	public Player (String playerName) {
-		this.playerName = playerName;
-		this.playerHP = BASE_HEALTH_POINTS;
-		this.playerPower = BASE_DAMAGE;
-		this.playerDefense = BASE_DEFENSE;
-		this.playerX = INITIAL_X;
-		this.playerY = INITIAL_Y;
-	}
+public class GameMap {
+	//These two values specifically store valid X and Y coordinates
+	//AKA real map locations, based on my drawn map
+	private int validX;
+	private int validY;
 	
 	//Fully parameterized constructor
-	public Player (String playerName, int playerHP, int playerPower, 
-			int playerDefense, int playerX, int playerY) {
-		this.playerName = playerName;
-		this.playerHP = playerHP;
-		this.playerPower = playerPower;
-		this.playerDefense = playerDefense;
-		this.playerX = playerX;
-		this.playerY = playerY;
+	public GameMap (int validX, int validY) {
+		this.validX = validX;
+		this.validY = validY;
 	}
 	
 	//Non-parameterized constructor
 	//Shouldn't ever use this but it's here for safety
-	public Player() {
-		this.playerName = "MISSING";
-		this.playerHP = BASE_HEALTH_POINTS;
-		this.playerPower = BASE_DAMAGE;
-		this.playerDefense = BASE_DEFENSE;
-		this.playerX = INITIAL_X;
-		this.playerY = INITIAL_Y;
+	public GameMap() {
+		this.validX = 0;
+		this.validY = 0;
 	}
 	
 	//Setters
-	public void setPlayerName (String playerName) {
-		this.playerName = playerName;
+	public void setValidX(int validX) {
+		this.validX = validX;
 	}
-	public void setPlayerHP (int playerHP) {
-		this.playerHP = playerHP;
-	}
-	public void setPlayerPower (int playerPower) {
-		this.playerPower = playerPower;
-	}
-	public void setPlayerDefense (int playerDefense) {
-		this.playerDefense = playerDefense;
-	}
-	public void setPlayerX (int playerX) {
-		this.playerX = playerX;
-	}
-	public void setPlayerY (int playerY) {
-		this.playerY = playerY;
+	public void setValidY(int validY) {
+		this.validY = validY;
 	}
 	
 	//Getters
-	public String getPlayerName() {
-		return playerName;
+	public int getValidX() {
+		return this.validX;
 	}
-	public int getPlayerHP() {
-		return playerHP;
-	}
-	public int getPlayerPower() {
-		return playerPower;
-	}
-	public int getPlayerDefense() {
-		return playerDefense;
-	}
-	public int getPlayerX() {
-		return playerX;
-	}
-	public int getPlayerY() {
-		return playerY;
+	public int getValidY() {
+		return this.validY;
 	}
 	
-	//		Algorithm: Player movement
-	//		Changes player position based on input
-	//Method to handle movement - this is used to update
-	//the player's position if collision succeeds.
-		//Note: A prior implementation had collision checked
-		//within this class, but this was changed so that
-		//everything is handled in DungeonsOfJava.
-	public void move(String move) {
-		//System.out.println("Called Player move");
-		if (move.equals("W")) {
-			this.playerY = playerY + 1;
-		}//end W-move
-		
-		if (move.equals("A")) {
-			this.playerX = playerX - 1;
-		}//end A-move
-		
-		if (move.equals("S")) {
-			this.playerY = playerY - 1;
-		}//end S-move
-		
-		if (move.equals("D")) {
-			this.playerX = playerX + 1;
-		}//end D-move
-	}//end move
+	//For collision functionality - compares x and y directly
+	//and returns true if BOTH are equal
+	@Override
+	public boolean equals(Object map) {
+		GameMap other = (GameMap) map;
+		if (this.validX == other.validX && this.validY == other.validY) {
+			return true;
+		}
+		return false;
+	}
 	
-	//toString - useful for checking if methods that affect the player
-	//are actually working. Surrounded by newlines to be more easily found.
+	//For debugging purposes, so the map can be printed at any time
 	@Override 
 	public String toString() {
-		return "\n" + playerName + ": HP = " + playerHP + " | POW = " + playerPower +
-				" | DEF = " + playerDefense + " | X = " + playerX + " | Y = " 
-				+ playerY + "\n";
+		return this.validX + ", " + this.validY;
 	}
 	
-}//end Player
+}

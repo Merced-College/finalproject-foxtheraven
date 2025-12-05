@@ -1,6 +1,7 @@
 /*
 Xandra Quevedo
 Started Nov 6 2025
+Finished Dec 4 2025
 Main game class for Dungeons of Java
 
 Note: Some hard-coded values may seem a little unexplained –
@@ -17,7 +18,7 @@ import java.util.Scanner;
 public class DungeonsOfJava {
 
 	public static void main(String[] args) {
-;		//For player input
+		//For player input
 		Scanner scnr = new Scanner(System.in);
 		//Keeps track of whether a battle is ongoing
 		boolean fightMode = false;
@@ -152,7 +153,6 @@ public class DungeonsOfJava {
 		//toString() can be used to check this is working
 		Player player = new Player(userName);
 		//System.out.println(player.toString());
-		
 		
 		//TODO - Left as placeholder text for now
 		//This would explain the player's move set (WASD, AA/AC/PY, O)
@@ -383,7 +383,6 @@ public class DungeonsOfJava {
 				actionCall(scnr, player, fightMode, validMap, enemy);
 			}
 		}
-		
 	}//end actionCall
 	
 //---------------------------------------------------------------
@@ -434,10 +433,10 @@ public class DungeonsOfJava {
 					//Incorrect action. Both player and rat are wounded.
 					System.out.println("You try to strike the rat, but it was already about to hit you!");
 					delay();
-					//damage = rat.getEnemyPower();
+					damage = rat.getEnemyPower();
 					//Below damage statement is to ensure player death works,
 					//as it is impossible to lose to the rat currently.
-					damage = 20;
+					//damage = 20;
 					
 					//PlayerHP is decremented by the rat's power
 					player.setPlayerHP(player.getPlayerHP() - damage);

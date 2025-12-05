@@ -1,5 +1,6 @@
 //Xandra Quevedo
 //Started Nov 6 2025
+//Finished Dec 4 2025
 //Player class for Dungeons of Java
 
 public class Player {
